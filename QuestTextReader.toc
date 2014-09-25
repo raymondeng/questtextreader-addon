@@ -1,0 +1,9 @@
+## Interface: 50400
+## Title: Quest Text Reader
+## Notes: Generates individual links for the Quest Text Reader web app, which can read quest texts to you.
+## Author: @cell303
+## Version: 0.0.2
+
+embeds.xml
+
+QuestTextReader.lua
