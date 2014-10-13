@@ -1,4 +1,4 @@
-## Interface: 50400
+## Interface: 60000
 ## Title: Quest Text Reader
 ## Notes: Generates links for the Quest Text Reader web app which reads quest texts to you.
 ## Author: @cell303

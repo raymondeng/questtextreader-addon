@@ -12,6 +12,7 @@ MyAddon = LibStub("AceAddon-3.0"):NewAddon("Quest Text Reader",
     "AceTimer-3.0")
 
 function MyAddon:ShowUrl()
+    --MyAddon:Print("Timer executed")
     show_url(build_url(questIds));
 end
 
@@ -24,6 +25,7 @@ function MyAddon:MySlashProcessorFunc(input)
     elseif input == "off" then
         active = false
     elseif input == "show" then
+        --MyAddon:Print("Before Timer")
         self:ScheduleTimer("ShowUrl", 0.01)
     else
         MyAddon:Print("Usage:")
@@ -52,8 +54,10 @@ end
 function UpdateQuestIds()
     questIds = {}
     pointer = 0
+    --MyAddon:Print("WTF?")
     for questIndex = 0, GetNumQuestLogEntries() do
-        local title, level, questTag, suggestedGroup, isHeader, isCollapsed, isComplete, isDaily, questID, startEvent, displayQuestID = GetQuestLogTitle(questIndex)
+        local title, level, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle(questIndex)
+        --MyAddon:Print(questIndex .. ": " .. questID)
         if questID ~= 0 then
             questIds[pointer] = questID
             pointer = pointer + 1
@@ -74,9 +78,9 @@ MyAddon:RegisterEvent("QUEST_LOG_UPDATE")
 
 -- inserts the character specifics (name, quest log, etc) into the base url
 function build_url(questIds)
-    local name = UnitName("player")
-    local sex = UnitSex("player")
-    local class, dotcare, race = GetPlayerInfoByGUID(UnitGUID("player"))
+    --local name = UnitName("player")
+    --local class, dotcare, race = GetPlayerInfoByGUID(UnitGUID("player"))
+    local dontcare, class, dontcare2, race, sex, name, realm = GetPlayerInfoByGUID(UnitGUID("player"))
     local questLog = mkString(questIds, ',')
     local link = string.format(BASE_URL, name, sex, class, race, questLog)
     return link
@@ -98,6 +102,7 @@ end
 
 -- opens the chat, inserts the url and highlights it
 function show_url(url)
+    --MyAddon:Print("Show!111")
     if url then
         local ChatFrameEditBox = ChatEdit_ChooseBoxForSend()
         ChatEdit_ActivateChat(ChatFrameEditBox)
